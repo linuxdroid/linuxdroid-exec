@@ -1,18 +1,18 @@
 CFLAGS += -Wall -Wextra -Werror -Oz
 
-libtermux-exec.so: termux-exec.c
-	$(CC) $(CFLAGS) termux-exec.c -shared -fPIC -o libtermux-exec.so
+liblinuxdroid-exec.so: linuxdroid-exec.c
+	$(CC) $(CFLAGS) linuxdroid-exec.c -shared -fPIC -o liblinuxdroid-exec.so
 
-install: libtermux-exec.so
-	install libtermux-exec.so $(PREFIX)/lib/libtermux-exec.so
+install: liblinuxdroid-exec.so
+	install liblinuxdroid-exec.so $(PREFIX)/lib/liblinuxdroid-exec.so
 
 uninstall:
-	rm -f $(PREFIX)/lib/libtermux-exec.so
+	rm -f $(PREFIX)/lib/liblinuxdroid-exec.so
 
-test: libtermux-exec.so
-	@LD_PRELOAD=${CURDIR}/libtermux-exec.so ./run-tests.sh
+test: liblinuxdroid-exec.so
+	@LD_PRELOAD=${CURDIR}/liblinuxdroid-exec.so ./run-tests.sh
 
 clean:
-	rm -f libtermux-exec.so tests/*-actual
+	rm -f liblinuxdroid-exec.so tests/*-actual
 
 .PHONY: clean install test uninstall
