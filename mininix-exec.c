@@ -13,7 +13,7 @@ static const char* mininix_rewrite_executable(const char* filename, char* buffer
 	if (bin_match == filename || bin_match == (filename + 4)) {
 		// We have either found "/bin/" at the start of the string or at
 		// "/xxx/bin/". Take the path after that.
-		strncpy(buffer + 36, bin_match + 5, buffer_len - 37);
+		strncpy(buffer + 34, bin_match + 5, buffer_len - 35);
 		filename = buffer;
 	}
 	return filename;
