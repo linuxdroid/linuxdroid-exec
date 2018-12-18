@@ -6,9 +6,9 @@
 #include <string.h>
 #include <unistd.h>
 
-static const char* termux_rewrite_executable(const char* filename, char* buffer, int buffer_len)
+static const char* mininix_rewrite_executable(const char* filename, char* buffer, int buffer_len)
 {
-	strcpy(buffer, "/data/data/com.termux/files/usr/bin/");
+	strcpy(buffer, "/data/data/mini.nix/home/usr/bin/");
 	char* bin_match = strstr(filename, "/bin/");
 	if (bin_match == filename || bin_match == (filename + 4)) {
 		// We have either found "/bin/" at the start of the string or at
@@ -25,7 +25,7 @@ int execve(const char* filename, char* const* argv, char *const envp[])
 	const char** new_argv = NULL;
 
 	char filename_buffer[512];
-	filename = termux_rewrite_executable(filename, filename_buffer, sizeof(filename_buffer));
+	filename = mininix_rewrite_executable(filename, filename_buffer, sizeof(filename_buffer));
 
 	// Error out if the file is not executable:
 	if (access(filename, X_OK) != 0) goto final;
@@ -70,7 +70,7 @@ int execve(const char* filename, char* const* argv, char *const envp[])
 	}
 
 	char interp_buf[512];
-	const char* new_interpreter = termux_rewrite_executable(interpreter, interp_buf, sizeof(interp_buf));
+	const char* new_interpreter = mininix_rewrite_executable(interpreter, interp_buf, sizeof(interp_buf));
 	if (new_interpreter == interpreter) goto final;
 
 	int orig_argv_count = 0;

@@ -1,18 +1,18 @@
 CFLAGS += -Wall -Wextra -Werror -Oz
 
-libtermux-exec.so: termux-exec.c
-	$(CC) $(CFLAGS) termux-exec.c -shared -fPIC -o libtermux-exec.so
+libmininix-exec.so: mininix-exec.c
+	$(CC) $(CFLAGS) mininix-exec.c -shared -fPIC -o libmininix-exec.so
 
-install: libtermux-exec.so
-	install libtermux-exec.so $(PREFIX)/lib/libtermux-exec.so
+install: libmininix-exec.so
+	install libmininix-exec.so $(PREFIX)/lib/libmininix-exec.so
 
 uninstall:
-	rm -f $(PREFIX)/lib/libtermux-exec.so
+	rm -f $(PREFIX)/lib/libmininix-exec.so
 
-test: libtermux-exec.so
-	@LD_PRELOAD=${CURDIR}/libtermux-exec.so ./run-tests.sh
+test: libmininix-exec.so
+	@LD_PRELOAD=${CURDIR}/libmininix-exec.so ./run-tests.sh
 
 clean:
-	rm -f libtermux-exec.so tests/*-actual
+	rm -f libmininix-exec.so tests/*-actual
 
 .PHONY: clean install test uninstall
